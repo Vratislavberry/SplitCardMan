@@ -1,3 +1,5 @@
+#server/dao/storage/splitCardList // kdybych nechtel odesilat data na GitHub
+#server/dao/storage/groupList
 .idea/
 .vscode/
 .history/
