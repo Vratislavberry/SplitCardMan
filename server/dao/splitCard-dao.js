@@ -46,14 +46,14 @@ function list(filter = {}) {
   }
 }
 
-// Method to list splitCards by categoryId
-function listByCategoryId(categoryId) {
+// Method to list splitCards by groupId
+function listByGroupId(groupId) {
   const splitCardList = list();
-  return splitCardList.filter((item) => item.categoryId === categoryId);
+  return splitCardList.filter((item) => item.groupId === groupId.groupId);
 }
 
 module.exports = {
   create,
   list,
-  listByCategoryId,
+  listByGroupId,
 };
