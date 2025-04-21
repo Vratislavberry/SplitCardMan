@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const port = 8888;
 
-//const groupController = require("./controller/group");
+const groupController = require("./controller/group");
 const splitCardController = require("./controller/splitCard");
 
 
@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-//app.use("/group", groupController);
+app.use("/group", groupController);
 app.use("/splitCard", splitCardController);
 
 app.listen(port, () => {

@@ -21,10 +21,10 @@ function get(groupId) {
 function create(group) {
   try {
     const groupList = list();
-    if (groupList.some((item) => item.name === group.name)) {
+    if (groupList.some((item) => item.title === group.title)) {
       throw {
         code: "uniqueNameAlreadyExists",
-        message: "exists group with given name",
+        message: "exists group with given title",
       };
     }
     group.id = crypto.randomBytes(16).toString("hex");
@@ -33,7 +33,7 @@ function create(group) {
     fs.writeFileSync(filePath, fileData, "utf8");
     return group;
   } catch (error) {
-    throw { code: "failedToCreategroup", group: error.group };
+    throw { code: "failedToCreategroup", group: error };
   }
 }
 
