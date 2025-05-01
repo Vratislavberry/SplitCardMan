@@ -17,10 +17,9 @@ const schema = {
 
 async function ListByGroupId(req, res) {
   try {
-    const filter = req.query?.date ? req.query : req.body;
-
+    const groupIdObject = req.body
     // validate input
-    const valid = ajv.validate(schema, filter);
+    const valid = ajv.validate(schema, groupIdObject);
     if (!valid) {
       res.status(400).json({
         code: "dtoInIsNotValid",
@@ -30,7 +29,7 @@ async function ListByGroupId(req, res) {
       return;
     }
 
-    const splitCardList = splitCardDao.listByGroupId(filter);
+    const splitCardList = splitCardDao.listByGroupId(groupIdObject);
 
     // return properly filled dtoOut
     res.json({splitCardList});

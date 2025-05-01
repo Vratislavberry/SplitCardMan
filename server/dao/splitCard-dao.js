@@ -8,7 +8,7 @@ const splitCardFolderPath = path.join(
   "splitCardList"
 );
 
-// Method to write an splitCard to a file
+// Method to create a splitCard
 function create(splitCard) {
   try {
     splitCard.id = crypto.randomBytes(16).toString("hex");
@@ -21,8 +21,8 @@ function create(splitCard) {
   }
 }
 
-// Method to list splitCards in a folder
-function list(filter = {}) {
+// Method to get a list of all splitCards
+function list() {
   try {
     const files = fs.readdirSync(splitCardFolderPath);
     let splitCardList = files.map((file) => {
@@ -32,12 +32,7 @@ function list(filter = {}) {
       );
       return JSON.parse(fileData);
     });
-    const filterDate = filter.date
-      ? new Date(filter.date).getMonth()
-      : new Date().getMonth();
-    splitCardList = splitCardList.filter(
-      (item) => new Date(item.date).getMonth() === filterDate
-    );
+
     splitCardList.sort((a, b) => new Date(a.date) - new Date(b.date));
 
     return splitCardList;

@@ -5,7 +5,7 @@ const crypto = require("crypto");
 const groupFolderPath = path.join(__dirname, "storage", "groupList");
 
 
-// Method to read an category from a file
+// Method to get a group with given groupId
 function get(groupId) {
     try {
       const filePath = path.join(groupFolderPath, `${groupId}.json`);
@@ -17,7 +17,7 @@ function get(groupId) {
     }
   }
 
-// Method to write a group to a file
+// Method to create a group
 function create(group) {
   try {
     const groupList = list();

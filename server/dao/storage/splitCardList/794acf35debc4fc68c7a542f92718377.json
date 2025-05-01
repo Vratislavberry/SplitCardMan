@@ -1,0 +1,7 @@
+{
+  "id": "794acf35debc4fc68c7a542f92718377",
+  "title": "JavaScript Engine Lifecycle (simplified)",
+  "questionText": "Load script;Parse code;Create AST;Compile to bytecode;Execute code;Manage memory",
+  "date": "2022-06-04",
+  "groupId": "6f194a4c9fd9399d622d506eb9038e83"
+}

@@ -1,0 +1,7 @@
+{
+  "id": "681e981db03f41a5a3eaf58927434e4e",
+  "title": "Steps in Async/Await Execution",
+  "questionText": "Function called;Promise returned;Await pauses execution;Promise resolves;Execution resumes;Result returned",
+  "date": "2022-06-03",
+  "groupId": "6f194a4c9fd9399d622d506eb9038e83"
+}

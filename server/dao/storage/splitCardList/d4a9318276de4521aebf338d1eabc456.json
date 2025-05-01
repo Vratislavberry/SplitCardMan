@@ -1,0 +1,7 @@
+{
+  "id": "d4a9318276de4521aebf338d1eabc456",
+  "title": "DNS Resolution Process",
+  "questionText": "Client sends DNS request;Local DNS cache is checked;Recursive query sent to resolver;Root server is queried;TLD server is queried;Authoritative DNS is queried;IP address returned",
+  "date": "2022-04-21",
+  "groupId": "53de10786a710c7b869f453b2772a07d"
+}

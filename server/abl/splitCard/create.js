@@ -34,7 +34,7 @@ async function Create(req, res) {
     }
 
     // validate date
-    if (new Date(splitCard.date) >= new Date()) {
+    if (new Date(splitCard.date) > new Date()) {
       res.status(400).json({
         code: "invalidDate",
         message: `date must be current day or day in the past`,
@@ -45,7 +45,6 @@ async function Create(req, res) {
 
     // check if groupId exists
     const group = groupDao.get(splitCard.groupId);
-
     if (!group) {
       res.status(400).json({
         code: "groupDoesNotExist",
