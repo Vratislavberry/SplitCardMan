@@ -16,6 +16,7 @@ import Col from "react-bootstrap/Col";
 
 import { GroupListContext } from "./group-list-provider";
 import Group from "./group";
+import PendingItem from "./pending-item";
 //import PendingItem from "./pending-item";
 // import TransactionItem from "./transaction-item";
 //import TransactionItemForm from "./transaction-item-form";
@@ -34,10 +35,14 @@ function DashboardContent() {
 
   return (
     <Container>
+      {state === "pending" ? (
+        <PendingItem />
+      ) : null}
+
       {state === "ready" ? (
         <Row>
           {data?.itemList?.map((group) => (
-              <Group key={group.id} id={group.id} title={group.title} />
+            <Group key={group.id} id={group.id} title={group.title} />
           ))}
         </Row>
       ) : null}
