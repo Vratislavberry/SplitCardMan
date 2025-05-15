@@ -1,5 +1,4 @@
-import { useContext, useMemo, useState } from "react";
-
+import { useContext, useMemo, useState, useEffect} from "react";
 
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/Row";
@@ -12,38 +11,42 @@ import Button from "react-bootstrap/Button";
 import Icon from "@mdi/react";
 import { mdiPlus } from "@mdi/js";
 
-import { GroupListContext } from "./group-list-provider";
-import Group from "./group";
+import { SplitCardListContext } from "./SplitCard-list-provider";
 import PendingItem from "../pending-item";
-import GroupForm from "./group-form";
+//import { GroupListContext } from "./group-list-provider";
+//import Group from "./group";
 //import PendingItem from "./pending-item";
-// import TransactionItem from "./transaction-item";
+//import GroupForm from "./group-form";
+//import PendingItem from "./pending-item";
+//import TransactionItem from "./transaction-item";
 //import TransactionItemForm from "./transaction-item-form";
 //import TransactionItemDeleteDialog from "./transaction-item-delete-dialog";
 //import CategoryDetail from "./category-detail";
 
-function DashboardContent() {
-  const { state, data } = useContext(GroupListContext);
-  const [GroupFormData, setGroupFormData] = useState();
+function GroupDetailContent() {
+  const { state, data } = useContext(SplitCardListContext);
 
+  console.log(`Moje data: ${JSON.stringify(data)}`);
 
   return (
     <Container>
-      {!!GroupFormData ? (
+      {/*!!GroupFormData ? (
         <GroupForm // zmenit jmeno a soubor cely
           item={GroupFormData}
           onClose={() => setGroupFormData()}
         />
-      ) : null}
+      ) : null*/}
 
       {state === "pending" ? <PendingItem /> : null}
 
       {state === "ready" ? (
         <Row>
-          {data?.itemList?.map((group) => (
-            <Group key={group.id} id={group.id} title={group.title} />
+          {data?.splitCardList?.map((splitCard) => (
+            <p>{splitCard.title}</p>
           ))}
+
           {/* New group Button */}
+          {/*
           <Col
             sm="4"
             className="d-flex justify-content-center text-center my-2 mx-sm-0"
@@ -56,6 +59,7 @@ function DashboardContent() {
               <Icon path={mdiPlus} size={1} />
             </Button>
           </Col>
+          */}
         </Row>
       ) : null}
     </Container>
@@ -243,4 +247,4 @@ function DashboardContent() {
   }
 }
 
-export default DashboardContent;
+export default GroupDetailContent;

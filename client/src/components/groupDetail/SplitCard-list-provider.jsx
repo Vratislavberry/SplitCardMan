@@ -2,21 +2,21 @@ import { createContext, useState, useEffect } from "react";
 
 import FetchHelper from "../../fetch-helper.js";
 
-export const GroupListContext = createContext();
+export const SplitCardListContext = createContext();
 
-function GroupListProvider({ children }) {
-  const [groupListDto, setGroupListDto] = useState({
+function SplitCardListProvider({ children, id }) {
+  const [splitCardListDto, setSplitCardListDto] = useState({
     state: "ready", // one of ready/pending/error
     data: null,
     error: null,
   });
 
-  async function handleLoad() {
-    setGroupListDto((current) => {
+  async function handleLoad(dtoIn) {
+    setSplitCardListDto((current) => {
       return { ...current, state: "pending" };
     });
-    const result = await FetchHelper.group.list();
-    setGroupListDto((current) => {
+    const result = await FetchHelper.splitCard.listByGroupId(dtoIn);
+    setSplitCardListDto((current) => {
       if (result.ok) {
         return { ...current, state: "ready", data: result.data, error: null };
       } else {
@@ -25,17 +25,17 @@ function GroupListProvider({ children }) {
     });
   }
 
-  // to launch load on visiting the Child component (Dashboard)
+  // to launch load on visiting the Child component (groupDetail)
   useEffect(() => {
-    handleLoad();
+    handleLoad({"groupId": id});
   }, []);
 
   async function handleCreate(dtoIn) {
-    setGroupListDto((current) => {
+    setSplitCardListDto((current) => {
       return { ...current, state: "pending" };
     });
-    const result = await FetchHelper.group.create(dtoIn);
-    setGroupListDto((current) => {
+    const result = await FetchHelper.splitCard.create(dtoIn);
+    setSplitCardListDto((current) => {
       if (result.ok) {
         current.data.itemList.push(result.data);
         // returns deep copy of current
@@ -110,16 +110,16 @@ function GroupListProvider({ children }) {
 */
 
   const value = {
-    ...groupListDto,
+    ...splitCardListDto,
     handlerMap: { handleLoad, handleCreate },
   };
 
-
+  //console.log(splitCardListDto);
   return (
-    <GroupListContext.Provider value={value}>
+    <SplitCardListContext.Provider value={value}>
       {children}
-    </GroupListContext.Provider>
+    </SplitCardListContext.Provider>
   );
 }
 
-export default GroupListProvider;
+export default SplitCardListProvider;

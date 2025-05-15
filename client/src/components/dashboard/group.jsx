@@ -1,17 +1,24 @@
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
+import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { GroupListContext } from "./group-list-provider";
 
 function Group({ id, title }) {
+  const navigate = useNavigate();
   const { data } = useContext(GroupListContext);
   return (
     <Col
       sm="4"
       className="d-flex justify-content-center text-center my-2 mx-sm-0"
     >
-      <Button className="w-100 w-sm-auto">{title}</Button>
+      <Button
+        className="w-100 w-sm-auto"
+        onClick={() => navigate(`/groupDetail?id=${id}&title=${title}`)}
+      >
+        {title}
+      </Button>
     </Col>
   );
 
@@ -42,4 +49,4 @@ function Group({ id, title }) {
   */
 }
 
-export default Group;   
+export default Group;

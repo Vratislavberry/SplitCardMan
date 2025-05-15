@@ -17,7 +17,8 @@ const schema = {
 
 async function ListByGroupId(req, res) {
   try {
-    const groupIdObject = req.body
+    //const groupIdObject = req.body
+    const groupIdObject = req.query
     // validate input
     const valid = ajv.validate(schema, groupIdObject);
     if (!valid) {
