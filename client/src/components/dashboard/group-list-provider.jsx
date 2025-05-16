@@ -15,7 +15,12 @@ function GroupListProvider({ children }) {
     setGroupListDto((current) => {
       return { ...current, state: "pending" };
     });
-    const result = await FetchHelper.group.list();
+    let result = await FetchHelper.group.list();
+
+    // sort data alphabeticaly
+    const sortedResultData = result?.data?.itemList?.sort((a, b) => a.title.localeCompare(b.title));
+    result.data.itemList = sortedResultData;
+    
     setGroupListDto((current) => {
       if (result.ok) {
         return { ...current, state: "ready", data: result.data, error: null };

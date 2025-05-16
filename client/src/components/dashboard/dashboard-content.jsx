@@ -52,6 +52,7 @@ function DashboardContent() {
               disable={(state === "pending").toString()}
               onClick={() => setGroupFormData({})}
               className="w-100 w-sm-auto"
+              variant="success"
             >
               <Icon path={mdiPlus} size={1} />
             </Button>
