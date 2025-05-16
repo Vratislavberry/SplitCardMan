@@ -4,7 +4,7 @@ import FetchHelper from "../../fetch-helper.js";
 
 export const SplitCardListContext = createContext();
 
-function SplitCardListProvider({ children, id }) {
+function SplitCardListProvider({ children, groupId }) {
   const [splitCardListDto, setSplitCardListDto] = useState({
     state: "ready", // one of ready/pending/error
     data: null,
@@ -27,7 +27,7 @@ function SplitCardListProvider({ children, id }) {
 
   // to launch load on visiting the Child component (groupDetail)
   useEffect(() => {
-    handleLoad({"groupId": id});
+    handleLoad({"groupId": groupId});
   }, []);
 
   async function handleCreate(dtoIn) {
@@ -37,13 +37,13 @@ function SplitCardListProvider({ children, id }) {
     const result = await FetchHelper.splitCard.create(dtoIn);
     setSplitCardListDto((current) => {
       if (result.ok) {
-        current.data.itemList.push(result.data);
+        current.data.splitCardList.push(result.data);
         // returns deep copy of current
         return {
           ...current, // Keeps all existing properties
           state: "ready", // Updates the state property
           // Updates the data property
-          data: { ...current.data, itemList: current.data.itemList.slice() },
+          data: { ...current.data, splitCardList: current.data.splitCardList.slice() },
           error: null, // Resets the error property
         };
       } else {
@@ -111,6 +111,7 @@ function SplitCardListProvider({ children, id }) {
 
   const value = {
     ...splitCardListDto,
+    groupId,
     handlerMap: { handleLoad, handleCreate },
   };
 

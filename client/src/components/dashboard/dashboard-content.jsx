@@ -30,7 +30,7 @@ function DashboardContent() {
   return (
     <Container>
       {!!GroupFormData ? (
-        <GroupForm // zmenit jmeno a soubor cely
+        <GroupForm
           item={GroupFormData}
           onClose={() => setGroupFormData()}
         />

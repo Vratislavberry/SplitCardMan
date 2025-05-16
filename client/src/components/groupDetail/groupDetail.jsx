@@ -17,7 +17,7 @@ function GroupDetail() {
     <>
       <Container>
         <h1 className="display-4 text-center">{title}</h1>
-        <SplitCardListProvider id={groupId}>
+        <SplitCardListProvider groupId={groupId}>
           <GroupDetailContent />
         </SplitCardListProvider>
       </Container>

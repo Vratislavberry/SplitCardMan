@@ -14,60 +14,44 @@ import { mdiPlus } from "@mdi/js";
 import { SplitCardListContext } from "./SplitCard-list-provider";
 import PendingItem from "../pending-item";
 import SplitCardUI from "./splitCardUI";
-//import { GroupListContext } from "./group-list-provider";
-//import Group from "./group";
-//import PendingItem from "./pending-item";
-//import GroupForm from "./group-form";
-//import PendingItem from "./pending-item";
-//import TransactionItem from "./transaction-item";
-//import TransactionItemForm from "./transaction-item-form";
-//import TransactionItemDeleteDialog from "./transaction-item-delete-dialog";
-//import CategoryDetail from "./category-detail";
+import SplitCardForm from "./splitCard-form";
+import SplitCardBlank from "./splitCard-blank";
 
 function GroupDetailContent() {
   const { state, data } = useContext(SplitCardListContext);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  const [SplitCardFormData, setSplitCardFormData] = useState();
   //console.log(`Moje data: ${JSON.stringify(data)}`);
 
   return (
     <Container>
-      {/*!!GroupFormData ? (
-        <GroupForm // zmenit jmeno a soubor cely
-          item={GroupFormData}
-          onClose={() => setGroupFormData()}
+      {!!SplitCardFormData ? (
+        <SplitCardForm // zmenit jmeno a soubor cely
+          item={SplitCardFormData}
+          onClose={() => setSplitCardFormData()}
         />
-      ) : null*/}
+      ) : null}
 
       {state === "pending" ? <PendingItem /> : null}
 
-      {state === "ready" && data ? (
+      {state === "ready" && data?.splitCardList?.length > 0 ? (
         <Row>
           <SplitCardUI
             cardIndex={currentCardIndex}
             setCardIndex={setCurrentCardIndex}
             card={data?.splitCardList[currentCardIndex]}
             numOfCards={data?.splitCardList.length}
+            onCreateFormClose={() => setSplitCardFormData({})}
           />
+        </Row>
+      ) : null}
 
-          {/*data?.splitCardList?.map((splitCard) => (
-            <p>{splitCard.title}</p>
-          ))*/}
-
-          {/* New group Button */}
-          {/*
-          <Col
-            sm="4"
-            className="d-flex justify-content-center text-center my-2 mx-sm-0"
-          >
-            <Button
-              disable={(state === "pending").toString()}
-              onClick={() => setGroupFormData({})}
-              className="w-100 w-sm-auto"
-            >
-              <Icon path={mdiPlus} size={1} />
-            </Button>
-          </Col>
-          */}
+      {/* no SplitCard is created yet */}
+      {state === "ready" && data?.splitCardList == 0 ? (
+        <Row>
+          <SplitCardBlank
+            onCreateFormClose={() => setSplitCardFormData({})}
+          />
         </Row>
       ) : null}
     </Container>

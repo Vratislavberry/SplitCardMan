@@ -19,8 +19,8 @@ function shuffle(array) {
   return array;
 }
 
-function SplitCardUI({ cardIndex, setCardIndex, card, numOfCards }) {
-  console.log(`card: ${JSON.stringify(card)}`);
+function SplitCardUI({ cardIndex, setCardIndex, card, numOfCards, onCreateFormClose}) {
+  //console.log(`card: ${JSON.stringify(card)}`);
 
   const [textSegments, setTextSegments] = useState([]);
 
@@ -141,15 +141,14 @@ function SplitCardUI({ cardIndex, setCardIndex, card, numOfCards }) {
     });
   }
 
-  console.log(textSegments);
+  //console.log(textSegments);
   //console.log(card.questionText.split(";"));
   return (
     <Card>
       <Card.Body>
-        {/*<Card.Title className="text-center">{card.title}</Card.Title>*/}
         <Container className="d-flex justify-content-between mb-1">
         <Card.Title>{card.title}</Card.Title>
-        <Button><Icon path={mdiPlus} size={1} /></Button>
+        <Button onClick={onCreateFormClose}><Icon path={mdiPlus} size={1} /></Button>
         </Container>
         <ListGroup>
           <ListGroup.Item>
