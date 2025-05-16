@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState, useEffect} from "react";
+import { useContext, useMemo, useState, useEffect } from "react";
 
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/Row";
@@ -13,6 +13,7 @@ import { mdiPlus } from "@mdi/js";
 
 import { SplitCardListContext } from "./SplitCard-list-provider";
 import PendingItem from "../pending-item";
+import SplitCardUI from "./splitCardUI";
 //import { GroupListContext } from "./group-list-provider";
 //import Group from "./group";
 //import PendingItem from "./pending-item";
@@ -25,8 +26,8 @@ import PendingItem from "../pending-item";
 
 function GroupDetailContent() {
   const { state, data } = useContext(SplitCardListContext);
-
-  console.log(`Moje data: ${JSON.stringify(data)}`);
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  //console.log(`Moje data: ${JSON.stringify(data)}`);
 
   return (
     <Container>
@@ -39,11 +40,18 @@ function GroupDetailContent() {
 
       {state === "pending" ? <PendingItem /> : null}
 
-      {state === "ready" ? (
+      {state === "ready" && data ? (
         <Row>
-          {data?.splitCardList?.map((splitCard) => (
+          <SplitCardUI
+            cardIndex={currentCardIndex}
+            setCardIndex={setCurrentCardIndex}
+            card={data?.splitCardList[currentCardIndex]}
+            numOfCards={data?.splitCardList.length}
+          />
+
+          {/*data?.splitCardList?.map((splitCard) => (
             <p>{splitCard.title}</p>
-          ))}
+          ))*/}
 
           {/* New group Button */}
           {/*
