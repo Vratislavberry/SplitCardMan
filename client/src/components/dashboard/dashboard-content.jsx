@@ -16,11 +16,6 @@ import { GroupListContext } from "./group-list-provider";
 import Group from "./group";
 import PendingItem from "../pending-item";
 import GroupForm from "./group-form";
-//import PendingItem from "./pending-item";
-// import TransactionItem from "./transaction-item";
-//import TransactionItemForm from "./transaction-item-form";
-//import TransactionItemDeleteDialog from "./transaction-item-delete-dialog";
-//import CategoryDetail from "./category-detail";
 
 function DashboardContent() {
   const { state, data } = useContext(GroupListContext);

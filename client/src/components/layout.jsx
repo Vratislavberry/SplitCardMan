@@ -8,7 +8,8 @@ function Layout() {
     <>
       <NavBar />
       <Container fluid className="p-0 mt-1">
-          <Outlet />  {/* Outlet se nahradi vnorenym kodem podle zvolene router v app.jsx */}
+        <Outlet />{" "}
+        {/* Outlet se nahradi vnorenym kodem podle zvolene router v app.jsx */}
       </Container>
     </>
   );

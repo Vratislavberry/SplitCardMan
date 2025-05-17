@@ -54,6 +54,7 @@ function SplitCardForm({ item, onClose }) {
             name="title"
             disabled={state === "pending"}
             required
+            maxLength={100}
           />
 
           <Form.Label>Question text *</Form.Label>
@@ -62,6 +63,7 @@ function SplitCardForm({ item, onClose }) {
             name="questionText"
             disabled={state === "pending"}
             required
+            maxLength={250}
           />
           <Form.Text className="text-muted text-center">
            * SplitCard pieces are separated via ";"
