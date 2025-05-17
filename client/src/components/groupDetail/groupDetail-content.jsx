@@ -26,7 +26,7 @@ function GroupDetailContent() {
   return (
     <Container>
       {!!SplitCardFormData ? (
-        <SplitCardForm // zmenit jmeno a soubor cely
+        <SplitCardForm
           item={SplitCardFormData}
           onClose={() => setSplitCardFormData()}
         />

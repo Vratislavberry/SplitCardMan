@@ -31,7 +31,6 @@ function SplitCardForm({ item, onClose }) {
           // extracts data from Modal form
           const values = Object.fromEntries(formData);
 
-          console.log(values);
           // set current date in form data in format YYYY-MM-DD
           values.date = getCurrentDate();
           // set groupId in form data
