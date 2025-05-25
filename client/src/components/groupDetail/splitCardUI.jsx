@@ -148,7 +148,7 @@ function SplitCardUI({ cardIndex, setCardIndex, card, numOfCards, onCreateFormCl
       <Card.Body>
         <Container className="d-flex justify-content-between mb-1">
         <Card.Title>{card.title}</Card.Title>
-        <Button onClick={onCreateFormClose}><Icon path={mdiPlus} size={1} /></Button>
+        <Button variant="success" onClick={onCreateFormClose}><Icon path={mdiPlus} size={1} /></Button>
         </Container>
         <ListGroup>
           <ListGroup.Item>
