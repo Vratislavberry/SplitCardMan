@@ -1,0 +1,7 @@
+{
+  "id": "8a7ac7fe714d3ce5e6699152354aa208",
+  "title": "RSA Algorithm Steps",
+  "questionText": "Choose primes;Compute modulus;Find public key;Encrypt message;Decrypt with private key",
+  "date": "2020-10-25",
+  "groupId": "0f7a069a0fa166538a823a5b266a181d"
+}
