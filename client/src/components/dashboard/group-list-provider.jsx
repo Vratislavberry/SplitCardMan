@@ -52,7 +52,7 @@ function GroupListProvider({ children }) {
           error: null, // Resets the error property
         };
       } else {
-        // state need to be ready on error or no data is shown
+        // state needs to be ready on error or no data is shown
         return { ...current, state: "ready", error: result.data };
       }
     });
@@ -64,7 +64,7 @@ function GroupListProvider({ children }) {
     setGroupListDto((current) => {
       return { ...current, state: "pending", pendingId: dtoIn.id };
     });
-    const result = await FetchHelper.transaction.update(dtoIn);
+    const result = await FetchHelper.group.update(dtoIn);
     setGroupListDto((current) => {
       if (result.ok) {
         const itemIndex = current.data.itemList.findIndex(
@@ -79,9 +79,10 @@ function GroupListProvider({ children }) {
           pendingId: undefined,
         };
       } else {
+        // state needs to be ready on error or no data is shown
         return {
           ...current,
-          state: "error",
+          state: "ready",
           error: result.data,
           pendingId: undefined,
         };
@@ -94,7 +95,7 @@ function GroupListProvider({ children }) {
     setGroupListDto((current) => {
       return { ...current, state: "pending", pendingId: dtoIn.id };
     });
-    const result = await FetchHelper.transaction.delete(dtoIn);
+    const result = await FetchHelper.group.delete(dtoIn);
     setGroupListDto((current) => {
       if (result.ok) {
         const itemIndex = current.data.itemList.findIndex(

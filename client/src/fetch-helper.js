@@ -44,6 +44,9 @@ const FetchHelper = {
     list: async () => {
       return await Call(baseUri, "group/list", null, "get");
     },
+    update: async (dtoIn) => {
+      return await Call(baseUri, "group/update", dtoIn, "post");
+    }
   },
 };
 

@@ -29,7 +29,6 @@ function GroupForm({ item, onClose }) {
           else{
             result = await handlerMap.handleCreate({ ...values });
           }
-          //let result = await handlerMap.handleCreate({ ...values });
 
           if (result.ok) {
             onClose();

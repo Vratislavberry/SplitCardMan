@@ -62,9 +62,9 @@ function update(group) {
     const currentGroup = get(group.id);
     if (!currentGroup) return null;
 
-    if (group.name && group.name !== currentGroup.name) {
+    if (group.title && group.title !== currentGroup.title) {
       const groupList = list();
-      if (groupList.some((item) => item.name === group.name)) {
+      if (groupList.some((item) => item.title === group.title)) {
         throw {
           code: "uniqueNameAlreadyExists",
           message: "exists group with given name",
@@ -78,7 +78,7 @@ function update(group) {
     fs.writeFileSync(filePath, fileData, "utf8");
     return newGroup;
   } catch (error) {
-    throw { code: "failedToUpdateGroup", group: error.group };
+    throw { code: "failedToUpdategroup", group: error };
   }
 }
 
