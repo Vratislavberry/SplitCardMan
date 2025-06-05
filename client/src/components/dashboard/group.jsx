@@ -1,5 +1,7 @@
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Container from "react-bootstrap/esm/Container";
 
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
@@ -13,12 +15,37 @@ function Group({ id, title }) {
       sm="4"
       className="d-flex justify-content-center text-center my-2 mx-sm-0"
     >
-      <Button
+      <Card
         className="w-100 w-sm-auto"
         onClick={() => navigate(`/groupDetail?id=${id}&title=${title}`)}
+        style={{ cursor: "pointer", transition: "box-shadow 0.2s" }}
+        onMouseOver={(e) => e.currentTarget.classList.add("shadow")}
+        onMouseOut={(e) => e.currentTarget.classList.remove("shadow")}
       >
-        {title}
-      </Button>
+        <Card.Body>
+          <Card.Title>{title}</Card.Title>
+          <Container className="d-flex justify-content-between mb-1">
+            <Button
+              variant="warning"
+              onClick={(e) => {
+                e.stopPropagation();
+                // my edit logic here
+              }}
+            >
+              Edit
+            </Button>
+            <Button
+              variant="danger"
+              onClick={(e) => {
+                e.stopPropagation();
+                // my delete logic here
+              }}
+            >
+              Delete
+            </Button>
+          </Container>
+        </Card.Body>
+      </Card>
     </Col>
   );
 
