@@ -7,9 +7,9 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { GroupListContext } from "./group-list-provider";
 
-function Group({ id, title }) {
+function Group({ data, setGroupFormData }) {
   const navigate = useNavigate();
-  const { data } = useContext(GroupListContext);
+  //const { data } = useContext(GroupListContext);
   return (
     <Col
       sm="4"
@@ -17,19 +17,21 @@ function Group({ id, title }) {
     >
       <Card
         className="w-100 w-sm-auto"
-        onClick={() => navigate(`/groupDetail?id=${id}&title=${title}`)}
+        onClick={() => navigate(`/groupDetail?id=${data.id}&title=${data.title}`)}
         style={{ cursor: "pointer", transition: "box-shadow 0.2s" }}
         onMouseOver={(e) => e.currentTarget.classList.add("shadow")}
         onMouseOut={(e) => e.currentTarget.classList.remove("shadow")}
       >
         <Card.Body>
-          <Card.Title>{title}</Card.Title>
+          <Card.Title>{data.title}</Card.Title>
           <Container className="d-flex justify-content-between mb-1">
             <Button
               variant="warning"
               onClick={(e) => {
                 e.stopPropagation();
                 // my edit logic here
+                console.log(data);
+                setGroupFormData(data);
               }}
             >
               Edit

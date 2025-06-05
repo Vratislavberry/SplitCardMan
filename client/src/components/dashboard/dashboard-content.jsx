@@ -1,6 +1,5 @@
 import { useContext, useMemo, useState } from "react";
 
-
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -21,14 +20,10 @@ function DashboardContent() {
   const { state, data } = useContext(GroupListContext);
   const [GroupFormData, setGroupFormData] = useState();
 
-
   return (
     <Container>
       {!!GroupFormData ? (
-        <GroupForm
-          item={GroupFormData}
-          onClose={() => setGroupFormData()}
-        />
+        <GroupForm item={GroupFormData} onClose={() => setGroupFormData()} />
       ) : null}
 
       {state === "pending" ? <PendingItem /> : null}
@@ -36,7 +31,11 @@ function DashboardContent() {
       {state === "ready" ? (
         <Row>
           {data?.itemList?.map((group) => (
-            <Group key={group.id} id={group.id} title={group.title} />
+            <Group
+              key={group.id}
+              data={group}
+              setGroupFormData={setGroupFormData}
+            />
           ))}
           {/* New group Button */}
           <Col

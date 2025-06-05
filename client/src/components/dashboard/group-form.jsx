@@ -7,7 +7,7 @@ import Form from "react-bootstrap/Form";
 import { GroupListContext } from "./group-list-provider.jsx";
 
 function GroupForm({ item, onClose }) {
-  const { state, data, handlerMap } = useContext(GroupListContext);
+  const { state, handlerMap } = useContext(GroupListContext);
   const [errorMsg, setErrorMsg] = useState();
 
   return (
@@ -22,8 +22,14 @@ function GroupForm({ item, onClose }) {
           const formData = new FormData(e.target);
           // extracts data from Modal form
           const values = Object.fromEntries(formData);
-
-          let result = await handlerMap.handleCreate({ ...values });
+          let result = null;
+          if (item.id){
+            result = await handlerMap.handleUpdate({...values, id: item.id});
+          }
+          else{
+            result = await handlerMap.handleCreate({ ...values });
+          }
+          //let result = await handlerMap.handleCreate({ ...values });
 
           if (result.ok) {
             onClose();
@@ -34,7 +40,7 @@ function GroupForm({ item, onClose }) {
         }}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Add group</Modal.Title>
+          <Modal.Title>{item.id ? "Edit" : "Create"} group</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Label>Title *</Form.Label>
@@ -42,6 +48,7 @@ function GroupForm({ item, onClose }) {
             type="text"
             name="title"
             disabled={state === "pending"}
+            defaultValue={item.title}
             required
             maxLength={50}
           />
@@ -62,7 +69,7 @@ function GroupForm({ item, onClose }) {
             type="submit"
             disabled={state === "pending"}
           >
-            Create
+            {item.id ? "Edit" : "Create"}
           </Button>
         </Modal.Footer>
       </Form>

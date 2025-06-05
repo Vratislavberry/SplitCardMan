@@ -37,6 +37,8 @@ function create(group) {
   }
 }
 
+
+
 // Method to list groups in a folder
 function list() {
   try {
@@ -54,8 +56,50 @@ function list() {
   }
 }
 
+// Method to update group in a file
+function update(group) {
+  try {
+    const currentGroup = get(group.id);
+    if (!currentGroup) return null;
+
+    if (group.name && group.name !== currentGroup.name) {
+      const groupList = list();
+      if (groupList.some((item) => item.name === group.name)) {
+        throw {
+          code: "uniqueNameAlreadyExists",
+          message: "exists group with given name",
+        };
+      }
+    }
+
+    const newGroup = { ...currentGroup, ...group };
+    const filePath = path.join(groupFolderPath, `${group.id}.json`);
+    const fileData = JSON.stringify(newGroup);
+    fs.writeFileSync(filePath, fileData, "utf8");
+    return newGroup;
+  } catch (error) {
+    throw { code: "failedToUpdateGroup", group: error.group };
+  }
+}
+
+// Method to remove an category from a file
+function remove(groupId) {
+  try {
+    const filePath = path.join(groupFolderPath, `${groupId}.json`);
+    fs.unlinkSync(filePath); // deletes a file
+    return {};
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      return {};
+    }
+    throw { code: "failedToRemoveGroup", group: error.group };
+  }
+}
+
 module.exports = {
   get,
   create,
   list,
+  update,
+  remove,
 };

@@ -52,7 +52,6 @@ function GroupListProvider({ children }) {
           error: null, // Resets the error property
         };
       } else {
-        console.log("dojdu sem");
         // state need to be ready on error or no data is shown
         return { ...current, state: "ready", error: result.data };
       }
@@ -60,7 +59,7 @@ function GroupListProvider({ children }) {
     return { ok: result.ok, error: result.ok ? undefined : result.data };
   }
 
-  /*
+  
   async function handleUpdate(dtoIn) {
     setGroupListDto((current) => {
       return { ...current, state: "pending", pendingId: dtoIn.id };
@@ -114,11 +113,11 @@ function GroupListProvider({ children }) {
     });
     return { ok: result.ok, error: result.ok ? undefined : result.data };
   }
-*/
+
 
   const value = {
     ...groupListDto,
-    handlerMap: { handleLoad, handleCreate },
+    handlerMap: { handleLoad, handleCreate, handleUpdate, handleDelete},
   };
 
 
