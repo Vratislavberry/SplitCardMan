@@ -1,7 +1,9 @@
+import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/esm/Container";
+
 
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
@@ -17,7 +19,9 @@ function Group({ data, setGroupFormData, setGroupDeleteFormData }) {
     >
       <Card
         className="w-100 w-sm-auto"
-        onClick={() => navigate(`/groupDetail?id=${data.id}&title=${data.title}`)}
+        onClick={() =>
+          navigate(`/groupDetail?id=${data.id}&title=${data.title}`)
+        }
         style={{ cursor: "pointer", transition: "box-shadow 0.2s" }}
         onMouseOver={(e) => e.currentTarget.classList.add("shadow")}
         onMouseOut={(e) => e.currentTarget.classList.remove("shadow")}
@@ -25,27 +29,28 @@ function Group({ data, setGroupFormData, setGroupDeleteFormData }) {
         <Card.Body>
           <Card.Title>{data.title}</Card.Title>
           <Container className="d-flex justify-content-between px-0">
-            <Button
-              variant="warning"
-              onClick={(e) => {
-                // otherwise it would trigger the card button onClick() too
-                e.stopPropagation();
-                setGroupFormData(data);
-              }}
-            >
-              Edit
-            </Button>
-            <Button
-              variant="danger"
-              onClick={(e) => {
-                // otherwise it would trigger the card button onClick() too
-                e.stopPropagation();
-                console.log(data);
-                setGroupDeleteFormData(data);
-              }}
-            >
-              Delete
-            </Button>
+                <Button 
+                  className="me-1"
+                  variant="warning"
+                  onClick={(e) => {
+                    // otherwise it would trigger the card button onClick() too
+                    e.stopPropagation();
+                    setGroupFormData(data);
+                  }}
+                >
+                  Edit
+                </Button>
+                <Button
+                  variant="danger"
+                  onClick={(e) => {
+                    // otherwise it would trigger the card button onClick() too
+                    e.stopPropagation();
+                    console.log(data);
+                    setGroupDeleteFormData(data);
+                  }}
+                >
+                  Delete
+                </Button>
           </Container>
         </Card.Body>
       </Card>
