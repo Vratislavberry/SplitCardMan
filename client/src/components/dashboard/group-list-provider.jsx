@@ -109,7 +109,8 @@ function GroupListProvider({ children }) {
           error: null,
         };
       } else {
-        return { ...current, state: "error", error: result.data };
+        // state needs to be ready on error or no data is shown
+        return { ...current, state: "ready", error: result.data };
       }
     });
     return { ok: result.ok, error: result.ok ? undefined : result.data };

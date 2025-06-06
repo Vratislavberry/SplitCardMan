@@ -15,15 +15,21 @@ import { GroupListContext } from "./group-list-provider";
 import Group from "./group";
 import PendingItem from "../pending-item";
 import GroupForm from "./group-form";
+import GroupDeleteForm from "./group-delete-form";
 
 function DashboardContent() {
   const { state, data } = useContext(GroupListContext);
   const [GroupFormData, setGroupFormData] = useState();
+  const [GroupDeleteFormData, setGroupDeleteFormData] = useState();
 
   return (
     <Container>
       {!!GroupFormData ? (
         <GroupForm item={GroupFormData} onClose={() => setGroupFormData()} />
+      ) : null}
+
+      {!!GroupDeleteFormData ? (
+        <GroupDeleteForm item={GroupDeleteFormData} onClose={() => setGroupDeleteFormData()} />
       ) : null}
 
       {state === "pending" ? <PendingItem /> : null}
@@ -35,6 +41,7 @@ function DashboardContent() {
               key={group.id}
               data={group}
               setGroupFormData={setGroupFormData}
+              setGroupDeleteFormData = {setGroupDeleteFormData}
             />
           ))}
           {/* New group Button */}

@@ -33,7 +33,6 @@ function GroupForm({ item, onClose }) {
           if (result.ok) {
             onClose();
           } else {
-            console.log(result.error.group.message);
             setErrorMsg(result.error.group.message)
           }
         }}

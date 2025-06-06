@@ -46,6 +46,9 @@ const FetchHelper = {
     },
     update: async (dtoIn) => {
       return await Call(baseUri, "group/update", dtoIn, "post");
+    },
+    delete: async (dtoIn) => {
+      return await Call(baseUri, "group/delete", dtoIn, "post");
     }
   },
 };

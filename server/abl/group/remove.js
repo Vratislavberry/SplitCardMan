@@ -30,7 +30,8 @@ async function Remove(req, res) {
     }
 
     // check there is no splitCard related to given group
-    const splitCardList = splitCardDao.listByGroupId(reqParams.id);
+    const splitCardList = splitCardDao.listByGroupId({groupId: reqParams.id});
+    console.log(splitCardList);
     if (splitCardList.length) {
       res.status(400).json({
         code: "groupWithSplitCards",

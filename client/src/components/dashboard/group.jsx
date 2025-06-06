@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { GroupListContext } from "./group-list-provider";
 
-function Group({ data, setGroupFormData }) {
+function Group({ data, setGroupFormData, setGroupDeleteFormData }) {
   const navigate = useNavigate();
   //const { data } = useContext(GroupListContext);
   return (
@@ -28,9 +28,8 @@ function Group({ data, setGroupFormData }) {
             <Button
               variant="warning"
               onClick={(e) => {
+                // otherwise it would trigger the card button onClick() too
                 e.stopPropagation();
-                // my edit logic here
-                console.log(data);
                 setGroupFormData(data);
               }}
             >
@@ -39,8 +38,10 @@ function Group({ data, setGroupFormData }) {
             <Button
               variant="danger"
               onClick={(e) => {
+                // otherwise it would trigger the card button onClick() too
                 e.stopPropagation();
-                // my delete logic here
+                console.log(data);
+                setGroupDeleteFormData(data);
               }}
             >
               Delete
