@@ -47,8 +47,51 @@ function listByGroupId(groupId) {
   return splitCardList.filter((item) => item.groupId === groupId.groupId);
 }
 
+function remove(splitCardId) {
+  try {
+    const filePath = path.join(splitCardFolderPath, `${splitCardId}.json`);
+    fs.unlinkSync(filePath); // deletes a file
+    return {};
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      return {};
+    }
+    throw { code: "failedToRemoveSplitCard", group: error.group };
+  }
+}
+
+// Method to read a splitCard from a file
+function get(splitCardId) {
+  try {
+    const filePath = path.join(splitCardFolderPath, `${splitCardId}.json`);
+    const fileData = fs.readFileSync(filePath, "utf8");
+    return JSON.parse(fileData);
+  } catch (error) {
+    if (error.code === "ENOENT") return null;
+    throw { code: "failedToReadSplitCard", message: error.message };
+  }
+}
+
+// Method to update splitCard in a file
+function update(splitCard) {
+  try {
+    const currentSplitCard = get(splitCard.id);
+    if (!currentSplitCard) return null;
+    const newSplitCard = { ...currentSplitCard, ...splitCard };
+    const filePath = path.join(splitCardFolderPath, `${splitCard.id}.json`);
+    const fileData = JSON.stringify(newSplitCard);
+    fs.writeFileSync(filePath, fileData, "utf8");
+    return newSplitCard;
+  } catch (error) {
+    throw { code: "failedToUpdateSplitCard", message: error.message };
+  }
+}
+
 module.exports = {
   create,
   list,
   listByGroupId,
+  remove,
+  get,
+  update
 };
