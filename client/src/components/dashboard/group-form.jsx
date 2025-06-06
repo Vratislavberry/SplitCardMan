@@ -3,12 +3,13 @@ import { useContext, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert";
 
 import { GroupListContext } from "./group-list-provider.jsx";
 
 function GroupForm({ item, onClose }) {
   const { state, handlerMap } = useContext(GroupListContext);
-  const [errorMsg, setErrorMsg] = useState();
+  const [errorState, setErrorState] = useState();
 
   return (
     <Modal show={true} onHide={onClose}>
@@ -33,7 +34,7 @@ function GroupForm({ item, onClose }) {
           if (result.ok) {
             onClose();
           } else {
-            setErrorMsg(result.error.group.message)
+            setErrorState(result.error)
           }
         }}
       >
@@ -50,9 +51,11 @@ function GroupForm({ item, onClose }) {
             required
             maxLength={50}
           />
-          <Form.Text className="text-danger">
-            {errorMsg}
-          </Form.Text>
+
+          {!!errorState?.group?.message ? (
+          <Alert variant={"danger"}>{errorState.group.message}</Alert>
+        ) : null}
+        
         </Modal.Body>
         <Modal.Footer>
           <Button

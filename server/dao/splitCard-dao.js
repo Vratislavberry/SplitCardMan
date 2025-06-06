@@ -43,10 +43,7 @@ function list() {
 
 // Method to list splitCards by groupId
 function listByGroupId(groupId) {
-  //console.log(groupId);
   const splitCardList = list();
-  //console.log(splitCardList.filter((item) => item.groupId === groupId.groupId).length());
-  //console.log(splitCardList.filter((item) => item.groupId !== groupId.groupId).length());
   return splitCardList.filter((item) => item.groupId === groupId.groupId);
 }
 

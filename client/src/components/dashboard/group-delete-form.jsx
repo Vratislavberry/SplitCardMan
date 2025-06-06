@@ -37,6 +37,7 @@ function GroupDeleteForm({ item, onClose }) {
             if (result.ok) {
               onClose();
             } else {
+              console.log(result.error);
               setErrorState(result.error);
             }
           }}
