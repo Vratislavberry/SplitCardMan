@@ -24,7 +24,7 @@ function Group({ data, setGroupFormData, setGroupDeleteFormData }) {
       >
         <Card.Body>
           <Card.Title>{data.title}</Card.Title>
-          <Container className="d-flex justify-content-between mb-1">
+          <Container className="d-flex justify-content-between px-0">
             <Button
               variant="warning"
               onClick={(e) => {
