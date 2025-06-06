@@ -6,7 +6,9 @@ import Button from "react-bootstrap/esm/Button";
 import Container from "react-bootstrap/esm/Container";
 
 import Icon from "@mdi/react";
-import { mdiPlus } from "@mdi/js";
+//import { mdiPlus } from "@mdi/js";
+import { mdiCog } from "@mdi/js";
+
 
 // randomly shuffles given array of objects
 function shuffle(array) {
@@ -19,10 +21,17 @@ function shuffle(array) {
   return array;
 }
 
-function SplitCardUI({ cardIndex, setCardIndex, card, numOfCards, onCreateFormClose}) {
+function SplitCardUI({
+  cardIndex,
+  setCardIndex,
+  card,
+  numOfCards,
+  setShowConfig,
+}) {
   //console.log(`card: ${JSON.stringify(card)}`);
 
   const [textSegments, setTextSegments] = useState([]);
+
 
   /** States whether the order of the segments is correct
    * true - correct, false - incorrect, null - not checked yet,
@@ -95,7 +104,7 @@ function SplitCardUI({ cardIndex, setCardIndex, card, numOfCards, onCreateFormCl
     */
     setTextSegments((prevTextSegments) =>
       prevTextSegments.map((segment) => {
-        return {...segment, checked: false, color: "secondary"};
+        return { ...segment, checked: false, color: "secondary" };
       })
     );
     setSplitCardState(null);
@@ -141,14 +150,14 @@ function SplitCardUI({ cardIndex, setCardIndex, card, numOfCards, onCreateFormCl
     });
   }
 
-  //console.log(textSegments);
-  //console.log(card.questionText.split(";"));
   return (
     <Card>
       <Card.Body>
         <Container className="d-flex justify-content-between mb-1">
-        <Card.Title>{card.title}</Card.Title>
-        <Button variant="success" onClick={onCreateFormClose}><Icon path={mdiPlus} size={1} /></Button>
+          <Card.Title>{card.title}</Card.Title>
+          <Button variant="success" onClick={() => setShowConfig(true)}>
+            <Icon path={mdiCog} size={1} />
+          </Button>
         </Container>
         <ListGroup>
           <ListGroup.Item>
@@ -180,14 +189,10 @@ function SplitCardUI({ cardIndex, setCardIndex, card, numOfCards, onCreateFormCl
             </Button>
           </ListGroup.Item>
           {SplitCardState === true && (
-            <ListGroup.Item variant="success">
-              You are right!
-            </ListGroup.Item>
+            <ListGroup.Item variant="success">You are right!</ListGroup.Item>
           )}
           {SplitCardState === false && (
-            <ListGroup.Item variant="danger">
-              You are incorrect
-            </ListGroup.Item>
+            <ListGroup.Item variant="danger">You are incorrect</ListGroup.Item>
           )}
         </ListGroup>
       </Card.Body>

@@ -16,15 +16,23 @@ import PendingItem from "../pending-item";
 import SplitCardUI from "./splitCardUI";
 import SplitCardForm from "./splitCard-form";
 import SplitCardBlank from "./splitCard-blank";
+import SplitCardConfig from "./splitCard-config";
 
 function GroupDetailContent() {
   const { state, data } = useContext(SplitCardListContext);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  const [showConfig, setShowConfig] = useState(false);
   const [SplitCardFormData, setSplitCardFormData] = useState();
-  //console.log(`Moje data: ${JSON.stringify(data)}`);
 
   return (
     <Container>
+      {!!showConfig ? (
+        <SplitCardConfig
+          onClose={() => setShowConfig(false)}
+          setSplitCardFormData={setSplitCardFormData}
+        />
+      ) : null}
+
       {!!SplitCardFormData ? (
         <SplitCardForm
           item={SplitCardFormData}
@@ -41,7 +49,7 @@ function GroupDetailContent() {
             setCardIndex={setCurrentCardIndex}
             card={data?.splitCardList[currentCardIndex]}
             numOfCards={data?.splitCardList.length}
-            onCreateFormClose={() => setSplitCardFormData({})}
+            setShowConfig={setShowConfig}
           />
         </Row>
       ) : null}
@@ -49,9 +57,7 @@ function GroupDetailContent() {
       {/* no SplitCard is created yet */}
       {state === "ready" && data?.splitCardList == 0 ? (
         <Row>
-          <SplitCardBlank
-            onCreateFormClose={() => setSplitCardFormData({})}
-          />
+          <SplitCardBlank onCreateFormClose={() => setSplitCardFormData({})} />
         </Row>
       ) : null}
     </Container>
