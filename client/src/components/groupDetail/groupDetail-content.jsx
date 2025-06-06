@@ -36,6 +36,7 @@ function GroupDetailContent() {
       {!!SplitCardFormData ? (
         <SplitCardForm
           item={SplitCardFormData}
+          switchToNewCard={() => setCurrentCardIndex(data?.splitCardList?.length)}
           onClose={() => setSplitCardFormData()}
         />
       ) : null}

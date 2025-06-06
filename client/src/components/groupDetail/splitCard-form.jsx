@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 
 import { SplitCardListContext } from "./SplitCard-list-provider";
 
-function SplitCardForm({ item, onClose }) {
+function SplitCardForm({ item, onClose, switchToNewCard }) {
   const { state, data, handlerMap, groupId } = useContext(SplitCardListContext);
 
 
@@ -39,6 +39,7 @@ function SplitCardForm({ item, onClose }) {
           let result = await handlerMap.handleCreate({ ...values });
 
           if (result.ok) {
+            switchToNewCard();
             onClose();
           }
         }}
