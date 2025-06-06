@@ -35,6 +35,13 @@ const FetchHelper = {
     listByGroupId: async (dtoIn) => {
       return await Call(baseUri, "splitCard/listByGroupId", dtoIn, "get");
     },
+    update: async (dtoIn) => {
+      return await Call(baseUri, "splitCard/update", dtoIn, "post");
+    },
+    delete: async (dtoIn) => {
+      return await Call(baseUri, "splitCard/delete", dtoIn, "post");
+    },
+
   },
 
   group: {

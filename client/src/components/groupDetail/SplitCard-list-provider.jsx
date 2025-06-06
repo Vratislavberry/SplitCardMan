@@ -53,22 +53,23 @@ function SplitCardListProvider({ children, groupId }) {
     return { ok: result.ok, error: result.ok ? undefined : result.data };
   }
 
-  /*
+
+  
   async function handleUpdate(dtoIn) {
-    setGroupListDto((current) => {
+    setSplitCardListDto((current) => {
       return { ...current, state: "pending", pendingId: dtoIn.id };
     });
-    const result = await FetchHelper.transaction.update(dtoIn);
-    setGroupListDto((current) => {
+    const result = await FetchHelper.splitCard.update(dtoIn);
+    setSplitCardListDto((current) => {
       if (result.ok) {
-        const itemIndex = current.data.itemList.findIndex(
+        const itemIndex = current.data.splitCardList.findIndex(
           (item) => item.id === dtoIn.id
         );
-        current.data.itemList[itemIndex] = dtoIn;
+        current.data.splitCardList[itemIndex] = dtoIn;
         return {
           ...current,
           state: "ready",
-          data: { ...current.data, itemList: current.data.itemList.slice() },
+          data: { ...current.data, splitCardList: current.data.splitCardList.slice() },
           error: null,
           pendingId: undefined,
         };
@@ -85,20 +86,20 @@ function SplitCardListProvider({ children, groupId }) {
   }
 
   async function handleDelete(dtoIn) {
-    setGroupListDto((current) => {
+    setSplitCardListDto((current) => {
       return { ...current, state: "pending", pendingId: dtoIn.id };
     });
-    const result = await FetchHelper.transaction.delete(dtoIn);
-    setGroupListDto((current) => {
+    const result = await FetchHelper.splitCard.delete(dtoIn);
+    setSplitCardListDto((current) => {
       if (result.ok) {
-        const itemIndex = current.data.itemList.findIndex(
+        const itemIndex = current.data.splitCardList.findIndex(
           (item) => item.id === dtoIn.id
         );
-        current.data.itemList.splice(itemIndex, 1);
+        current.data.splitCardList.splice(itemIndex, 1);
         return {
           ...current,
           state: "ready",
-          data: { ...current.data, itemList: current.data.itemList.slice() },
+          data: { ...current.data, splitCardList: current.data.splitCardList.slice() },
           error: null,
         };
       } else {
@@ -107,12 +108,13 @@ function SplitCardListProvider({ children, groupId }) {
     });
     return { ok: result.ok, error: result.ok ? undefined : result.data };
   }
-*/
+
+
 
   const value = {
     ...splitCardListDto,
     groupId,
-    handlerMap: { handleLoad, handleCreate },
+    handlerMap: { handleLoad, handleCreate, handleUpdate, handleDelete },
   };
 
   //console.log(splitCardListDto);

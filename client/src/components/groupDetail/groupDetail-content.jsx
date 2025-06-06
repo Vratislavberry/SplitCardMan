@@ -30,6 +30,7 @@ function GroupDetailContent() {
         <SplitCardConfig
           onClose={() => setShowConfig(false)}
           setSplitCardFormData={setSplitCardFormData}
+          currentCard={data?.splitCardList[currentCardIndex]}
         />
       ) : null}
 

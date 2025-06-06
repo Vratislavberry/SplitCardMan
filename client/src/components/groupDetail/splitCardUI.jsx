@@ -154,7 +154,7 @@ function SplitCardUI({
     <Card>
       <Card.Body>
         <Container className="d-flex justify-content-between mb-1">
-          <Card.Title>{card.title}</Card.Title>
+          <Card.Title>{card?.title}</Card.Title>
           <Button variant="success" onClick={() => setShowConfig(true)}>
             <Icon path={mdiCog} size={1} />
           </Button>

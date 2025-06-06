@@ -12,7 +12,7 @@ function splitCardBlank({onCreateFormClose}) {
       <Card.Body>
         <Container className="d-flex justify-content-between mb-1">
           <Card.Title>Create new SplitCard</Card.Title>
-          <Button onClick={onCreateFormClose}>
+          <Button variant="success" onClick={onCreateFormClose}>
             <Icon path={mdiPlus} size={1} />
           </Button>
         </Container>

@@ -9,14 +9,13 @@ import { SplitCardListContext } from "./SplitCard-list-provider";
 function SplitCardForm({ item, onClose, switchToNewCard }) {
   const { state, data, handlerMap, groupId } = useContext(SplitCardListContext);
 
-
-  function getCurrentDate(){
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, "0"); // Months are 0-based
-  const day = String(today.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-};
+  function getCurrentDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+    const day = String(today.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
 
   return (
     <Modal show={true} onHide={onClose}>
@@ -36,16 +35,24 @@ function SplitCardForm({ item, onClose, switchToNewCard }) {
           // set groupId in form data
           values.groupId = groupId;
 
-          let result = await handlerMap.handleCreate({ ...values });
+          let result = null;
+          if (item.id) {
+            result = await handlerMap.handleUpdate({ ...values, id: item.id });
+          } else {
+            result = await handlerMap.handleCreate({ ...values });
+          }
 
           if (result.ok) {
-            switchToNewCard();
+            // If we created a new card, switch to it
+            if (!item.id) {
+              switchToNewCard();
+            }
             onClose();
           }
         }}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Add SplitCard</Modal.Title>
+          <Modal.Title>{item?.id ? "Update" : "Add"} SplitCard</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Label>Title *</Form.Label>
@@ -53,6 +60,7 @@ function SplitCardForm({ item, onClose, switchToNewCard }) {
             type="text"
             name="title"
             disabled={state === "pending"}
+            defaultValue={item?.title}
             required
             maxLength={100}
           />
@@ -62,11 +70,12 @@ function SplitCardForm({ item, onClose, switchToNewCard }) {
             type="text"
             name="questionText"
             disabled={state === "pending"}
+            defaultValue={item?.questionText}
             required
             maxLength={250}
           />
           <Form.Text className="text-muted text-center">
-           * SplitCard pieces are separated via ";"
+            * SplitCard pieces are separated via ";"
           </Form.Text>
         </Modal.Body>
         <Modal.Footer>
@@ -82,7 +91,7 @@ function SplitCardForm({ item, onClose, switchToNewCard }) {
             type="submit"
             disabled={state === "pending"}
           >
-            Create
+            {item?.id ? "Update" : "Create"}
           </Button>
         </Modal.Footer>
       </Form>
