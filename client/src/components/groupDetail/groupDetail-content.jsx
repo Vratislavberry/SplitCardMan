@@ -11,10 +11,11 @@ import Button from "react-bootstrap/Button";
 import Icon from "@mdi/react";
 import { mdiPlus } from "@mdi/js";
 
-import { SplitCardListContext } from "./SplitCard-list-provider";
+import { SplitCardListContext } from "./splitCard-list-provider";
 import PendingItem from "../pending-item";
 import SplitCardUI from "./splitCardUI";
 import SplitCardForm from "./splitCard-form";
+import SplitCardDeleteForm from "./splitCard-delete-form";
 import SplitCardBlank from "./splitCard-blank";
 import SplitCardConfig from "./splitCard-config";
 
@@ -23,6 +24,8 @@ function GroupDetailContent() {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [showConfig, setShowConfig] = useState(false);
   const [SplitCardFormData, setSplitCardFormData] = useState();
+  const [SplitCardDeleteFormData, setSplitCardDeleteFormData] = useState();
+
 
   return (
     <Container>
@@ -30,6 +33,7 @@ function GroupDetailContent() {
         <SplitCardConfig
           onClose={() => setShowConfig(false)}
           setSplitCardFormData={setSplitCardFormData}
+          setSplitCardDeleteFormData={setSplitCardDeleteFormData}
           currentCard={data?.splitCardList[currentCardIndex]}
         />
       ) : null}
@@ -39,6 +43,15 @@ function GroupDetailContent() {
           item={SplitCardFormData}
           switchToNewCard={() => setCurrentCardIndex(data?.splitCardList?.length)}
           onClose={() => setSplitCardFormData()}
+        />
+      ) : null}
+
+
+      {!!SplitCardDeleteFormData ? (
+        <SplitCardDeleteForm
+          item={SplitCardDeleteFormData}
+          switchToNewCard={() => setCurrentCardIndex(data?.splitCardList?.length)}
+          onClose={() => setSplitCardDeleteFormData()}
         />
       ) : null}
 

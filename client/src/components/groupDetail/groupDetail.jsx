@@ -1,4 +1,4 @@
-import SplitCardListProvider from "./SplitCard-list-provider";
+import SplitCardListProvider from "./splitCard-list-provider";
 import GroupDetailContent from "./groupDetail-content";
 import { useLocation } from "react-router-dom";
 

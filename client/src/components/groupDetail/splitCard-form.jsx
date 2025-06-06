@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-import { SplitCardListContext } from "./SplitCard-list-provider";
+import { SplitCardListContext } from "./splitCard-list-provider";
 
 function SplitCardForm({ item, onClose, switchToNewCard }) {
   const { state, data, handlerMap, groupId } = useContext(SplitCardListContext);
