@@ -6,7 +6,13 @@ import Alert from "react-bootstrap/Alert";
 
 import { SplitCardListContext } from "./splitCard-list-provider.jsx";
 
-function SplitCardDeleteForm({ item, onClose, isLastCard, switchToPrevCard }) {
+function SplitCardDeleteForm({
+  item,
+  onClose,
+  isLastCard,
+  switchToPrevCard,
+  setSplitCardStates,
+}) {
   const [errorState, setErrorState] = useState();
   const { state, handlerMap } = useContext(SplitCardListContext);
 
@@ -19,7 +25,6 @@ function SplitCardDeleteForm({ item, onClose, isLastCard, switchToPrevCard }) {
         {!!errorState?.message ? (
           <Alert variant={"danger"}>{errorState.message}</Alert>
         ) : null}
-
         Do you really want to delete splitCard <b>{item.title}</b>
       </Modal.Body>
       <Modal.Footer>
@@ -36,9 +41,11 @@ function SplitCardDeleteForm({ item, onClose, isLastCard, switchToPrevCard }) {
           onClick={async () => {
             const result = await handlerMap.handleDelete({ id: item.id });
             if (result.ok) {
-              if (isLastCard){
+              if (isLastCard) {
                 switchToPrevCard();
               }
+              setSplitCardStates();
+
               onClose();
             } else {
               setErrorState(result.error);

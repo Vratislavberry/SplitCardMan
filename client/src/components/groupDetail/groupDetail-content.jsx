@@ -26,12 +26,24 @@ function GroupDetailContent() {
   const [showConfig, setShowConfig] = useState(false);
   const [SplitCardFormData, setSplitCardFormData] = useState();
   const [SplitCardDeleteFormData, setSplitCardDeleteFormData] = useState();
-  const [SplitCardstates, setSplitCardStates] = useState();
+  const [SplitCardStates, setSplitCardStates] = useState();
 
   useEffect(() => {
-    setSplitCardStates(data?.splitCardList.map((item) => {return undefined}))
-  }, [data?.splitCardList]);
-
+    if (
+      state === "ready" &&
+      data?.splitCardList?.length > 0 &&
+      SplitCardStates?.length === undefined
+    ) {
+      console.log(`davam na unvisited, stav: ${state}`);
+      setSplitCardStates(
+        data?.splitCardList.map((item, i) => {
+          return i === 0 ? "current" : "unvisited";
+        })
+      );
+    } else {
+      console.log(`pusteno a neproslo, stav: ${state}`);
+    }
+  }, [state]);
 
   return (
     <Container>
@@ -47,33 +59,58 @@ function GroupDetailContent() {
       {!!SplitCardFormData ? (
         <SplitCardForm
           item={SplitCardFormData}
-          switchToNewCard={() => setCurrentCardIndex(data?.splitCardList?.length)}
+          switchToNewCard={() => {
+            setCurrentCardIndex(data?.splitCardList?.length);
+            setSplitCardStates([...(SplitCardStates || []), "current"]);
+          }}
           onClose={() => setSplitCardFormData()}
         />
       ) : null}
-
 
       {!!SplitCardDeleteFormData ? (
         <SplitCardDeleteForm
           item={SplitCardDeleteFormData}
           onClose={() => setSplitCardDeleteFormData()}
-          isLastCard={(data?.splitCardList?.length-1) === currentCardIndex}
-          switchToPrevCard={() => setCurrentCardIndex(currentCardIndex-1)}
+          isLastCard={data?.splitCardList?.length - 1 === currentCardIndex}
+          switchToPrevCard={() => setCurrentCardIndex(currentCardIndex - 1)}
+          setSplitCardStates={() =>
+            setSplitCardStates(
+              SplitCardStates.filter((_, i) => i !== currentCardIndex)
+            )
+          }
         />
       ) : null}
 
       {state === "pending" ? <PendingItem /> : null}
 
       {state === "ready" && data?.splitCardList?.length > 0 ? (
-        
         <Row>
-          <SplitCardBar splitCardStates={SplitCardstates}/>
+          <SplitCardBar
+            splitCardStates={SplitCardStates}
+            setCurrentCardIndex={setCurrentCardIndex}
+          />
           <SplitCardUI
             cardIndex={currentCardIndex}
             setCardIndex={setCurrentCardIndex}
             card={data?.splitCardList[currentCardIndex]}
             numOfCards={data?.splitCardList?.length}
             setShowConfig={setShowConfig}
+            changeCardState={(state) =>
+              setSplitCardStates(
+                SplitCardStates?.map((prevState, i) => {
+                  if (i === currentCardIndex) {
+                    return state;
+                  } else if (
+                    prevState === "current" &&
+                    i !== currentCardIndex
+                  ) {
+                    return "visited";
+                  } else {
+                    return prevState;
+                  }
+                })
+              )
+            }
           />
         </Row>
       ) : null}

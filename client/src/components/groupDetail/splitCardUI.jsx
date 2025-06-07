@@ -27,6 +27,7 @@ function SplitCardUI({
   card,
   numOfCards,
   setShowConfig,
+  changeCardState,
 }) {
   //console.log(`card: ${JSON.stringify(card)}`);
 
@@ -34,10 +35,14 @@ function SplitCardUI({
 
 
   /** States whether the order of the segments is correct
-   * true - correct, false - incorrect, null - not checked yet,
-   * undefined - not visited yet
+   * "correct", "incorrect", "visited", "unvisited", "current"
    * */
-  const [SplitCardState, setSplitCardState] = useState(null);
+  const [SplitCardState, setSplitCardState] = useState("unvisited");
+
+  useEffect(() => {
+    console.log(`zmena na: ${SplitCardState}`);
+    changeCardState(SplitCardState);
+  }, [SplitCardState])
 
   // Update textSegments whenever cardIndex or card changes
   useEffect(() => {
@@ -54,7 +59,8 @@ function SplitCardUI({
       );
       setTextSegments(shuffledSegments);
     }
-    setSplitCardState(null);
+    setSplitCardState("current");
+    changeCardState(SplitCardState);
   }, [cardIndex, card]);
 
   // handles click on the card segment
@@ -77,7 +83,7 @@ function SplitCardUI({
       ];
     });
 
-    setSplitCardState(null);
+    setSplitCardState("current");
   }
 
   /***** helper functions *****/
@@ -96,7 +102,7 @@ function SplitCardUI({
   }
 
   // handles click on the reset button
-  // sets state to null and reset SplitCardSegments
+  // sets state to "visited" and reset SplitCardSegments
   function handleReset() {
     /*TextSegments().map((segment) => {
       return { ...segment, checked: false, color: "white" };
@@ -107,11 +113,11 @@ function SplitCardUI({
         return { ...segment, checked: false, color: "secondary" };
       })
     );
-    setSplitCardState(null);
+    setSplitCardState("current");
   }
 
   // handles click on the check button
-  // sets correctResult to true if all segments are checked and in correct order
+  // sets correctResult to "correct" if all segments are checked and in correct order
   function handleCheck() {
     // change color of all incorrect segments to red and correct to green
     let iOfCheckedSegments = 0;
@@ -131,11 +137,11 @@ function SplitCardUI({
     // check if all segments are checked and in correct order
     for (let i = 0; i < textSegments.length; i++) {
       if (textSegments[i].id !== i || textSegments[i].checked !== true) {
-        setSplitCardState(false);
+        setSplitCardState("incorrect");
         return;
       }
     }
-    setSplitCardState(true);
+    setSplitCardState("correct");
   }
 
   // Changes one element of the textSegments array without mutating the original array
@@ -188,10 +194,10 @@ function SplitCardUI({
               {">>"}
             </Button>
           </ListGroup.Item>
-          {SplitCardState === true && (
+          {SplitCardState === "correct" && (
             <ListGroup.Item variant="success">You are right!</ListGroup.Item>
           )}
-          {SplitCardState === false && (
+          {SplitCardState === "incorrect" && (
             <ListGroup.Item variant="danger">You are incorrect</ListGroup.Item>
           )}
         </ListGroup>
