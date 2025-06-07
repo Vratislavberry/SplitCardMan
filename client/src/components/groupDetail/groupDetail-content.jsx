@@ -18,6 +18,7 @@ import SplitCardForm from "./splitCard-form";
 import SplitCardDeleteForm from "./splitCard-delete-form";
 import SplitCardBlank from "./splitCard-blank";
 import SplitCardConfig from "./splitCard-config";
+import SplitCardBar from "./splitCard-bar";
 
 function GroupDetailContent() {
   const { state, data } = useContext(SplitCardListContext);
@@ -25,6 +26,11 @@ function GroupDetailContent() {
   const [showConfig, setShowConfig] = useState(false);
   const [SplitCardFormData, setSplitCardFormData] = useState();
   const [SplitCardDeleteFormData, setSplitCardDeleteFormData] = useState();
+  const [SplitCardstates, setSplitCardStates] = useState();
+
+  useEffect(() => {
+    setSplitCardStates(data?.splitCardList.map((item) => {return undefined}))
+  }, [data?.splitCardList]);
 
 
   return (
@@ -59,7 +65,9 @@ function GroupDetailContent() {
       {state === "pending" ? <PendingItem /> : null}
 
       {state === "ready" && data?.splitCardList?.length > 0 ? (
+        
         <Row>
+          <SplitCardBar splitCardStates={SplitCardstates}/>
           <SplitCardUI
             cardIndex={currentCardIndex}
             setCardIndex={setCurrentCardIndex}
