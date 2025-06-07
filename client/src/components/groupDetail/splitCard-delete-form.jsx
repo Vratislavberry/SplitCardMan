@@ -6,7 +6,7 @@ import Alert from "react-bootstrap/Alert";
 
 import { SplitCardListContext } from "./splitCard-list-provider.jsx";
 
-function SplitCardDeleteForm({ item, onClose }) {
+function SplitCardDeleteForm({ item, onClose, isLastCard, switchToPrevCard }) {
   const [errorState, setErrorState] = useState();
   const { state, handlerMap } = useContext(SplitCardListContext);
 
@@ -36,6 +36,9 @@ function SplitCardDeleteForm({ item, onClose }) {
           onClick={async () => {
             const result = await handlerMap.handleDelete({ id: item.id });
             if (result.ok) {
+              if (isLastCard){
+                switchToPrevCard();
+              }
               onClose();
             } else {
               setErrorState(result.error);

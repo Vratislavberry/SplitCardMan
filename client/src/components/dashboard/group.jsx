@@ -45,7 +45,6 @@ function Group({ data, setGroupFormData, setGroupDeleteFormData }) {
                   onClick={(e) => {
                     // otherwise it would trigger the card button onClick() too
                     e.stopPropagation();
-                    console.log(data);
                     setGroupDeleteFormData(data);
                   }}
                 >

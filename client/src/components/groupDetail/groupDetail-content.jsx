@@ -50,8 +50,9 @@ function GroupDetailContent() {
       {!!SplitCardDeleteFormData ? (
         <SplitCardDeleteForm
           item={SplitCardDeleteFormData}
-          switchToNewCard={() => setCurrentCardIndex(data?.splitCardList?.length)}
           onClose={() => setSplitCardDeleteFormData()}
+          isLastCard={(data?.splitCardList?.length-1) === currentCardIndex}
+          switchToPrevCard={() => setCurrentCardIndex(currentCardIndex-1)}
         />
       ) : null}
 
@@ -63,7 +64,7 @@ function GroupDetailContent() {
             cardIndex={currentCardIndex}
             setCardIndex={setCurrentCardIndex}
             card={data?.splitCardList[currentCardIndex]}
-            numOfCards={data?.splitCardList.length}
+            numOfCards={data?.splitCardList?.length}
             setShowConfig={setShowConfig}
           />
         </Row>
