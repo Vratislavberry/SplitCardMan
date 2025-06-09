@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
@@ -8,7 +8,6 @@ import Container from "react-bootstrap/esm/Container";
 import Icon from "@mdi/react";
 //import { mdiPlus } from "@mdi/js";
 import { mdiCog } from "@mdi/js";
-
 
 // randomly shuffles given array of objects
 function shuffle(array) {
@@ -40,9 +39,8 @@ function SplitCardUI({
   const [SplitCardState, setSplitCardState] = useState("unvisited");
 
   useEffect(() => {
-    console.log(`zmena na: ${SplitCardState}`);
     changeCardState(SplitCardState);
-  }, [SplitCardState])
+  }, [SplitCardState]);
 
   // Update textSegments whenever cardIndex or card changes
   useEffect(() => {
