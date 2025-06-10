@@ -6,7 +6,12 @@ import Form from "react-bootstrap/Form";
 
 import { SplitCardListContext } from "./splitCard-list-provider";
 
-function SplitCardForm({ item, onClose, switchToNewCard }) {
+function SplitCardForm({
+  item,
+  onClose,
+  switchToNewCard,
+  resetTextSegmentItem,
+}) {
   const { state, data, handlerMap, groupId } = useContext(SplitCardListContext);
 
   function getCurrentDate() {
@@ -46,6 +51,9 @@ function SplitCardForm({ item, onClose, switchToNewCard }) {
             // If we created a new card, switch to it
             if (!item.id) {
               switchToNewCard();
+            }
+            if (item?.id) {
+              resetTextSegmentItem();
             }
             onClose();
           }

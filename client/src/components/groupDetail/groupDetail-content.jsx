@@ -23,7 +23,7 @@ function GroupDetailContent() {
   const [SplitCardFormData, setSplitCardFormData] = useState();
   const [SplitCardDeleteFormData, setSplitCardDeleteFormData] = useState();
   const [SplitCardStates, setSplitCardStates] = useState();
-  const [textSegmentsList, setTextSegmentsList] = useState();
+  const [textSegmentsList, setTextSegmentsList] = useState([]);
 
   // when data is ready, initialize SplitCardStates
   // with "current" for the first card and "unvisited" for the rest
@@ -36,6 +36,11 @@ function GroupDetailContent() {
       setSplitCardStates(
         data?.splitCardList.map((item, i) => {
           return i === 0 ? "current" : "unvisited";
+        })
+      );
+      setTextSegmentsList(
+        data?.splitCardList.map((item) => {
+          return [];
         })
       );
     }
@@ -58,8 +63,14 @@ function GroupDetailContent() {
           switchToNewCard={() => {
             setCurrentCardIndex(data?.splitCardList?.length);
             setSplitCardStates([...(SplitCardStates || []), "current"]);
+            setTextSegmentsList([...(textSegmentsList || []), []]);
           }}
           onClose={() => setSplitCardFormData()}
+          resetTextSegmentItem={() =>
+            setTextSegmentsList(
+              textSegmentsList.map((item, i) =>  i !== currentCardIndex ? item : [])
+            )
+          }
         />
       ) : null}
 
@@ -72,6 +83,11 @@ function GroupDetailContent() {
           setSplitCardStates={() =>
             setSplitCardStates(
               SplitCardStates.filter((_, i) => i !== currentCardIndex)
+            )
+          }
+          delCardTextSegments={() =>
+            setTextSegmentsList(
+              textSegmentsList.filter((_, i) => i !== currentCardIndex)
             )
           }
         />
@@ -107,6 +123,18 @@ function GroupDetailContent() {
                 })
               )
             }
+            textSegmentsSaved={textSegmentsList[currentCardIndex]}
+            updateTextSegments={(updSegments) => {
+              setTextSegmentsList(
+                textSegmentsList.map((item, i) => {
+                  if (i === currentCardIndex) {
+                    return updSegments;
+                  } else {
+                    return item;
+                  }
+                })
+              );
+            }}
           />
         </Row>
       ) : null}

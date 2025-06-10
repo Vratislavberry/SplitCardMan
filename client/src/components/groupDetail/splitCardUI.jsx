@@ -27,23 +27,24 @@ function SplitCardUI({
   numOfCards,
   setShowConfig,
   changeCardState,
+  textSegmentsSaved,
+  updateTextSegments,
 }) {
   //console.log(`card: ${JSON.stringify(card)}`);
 
-  const [textSegments, setTextSegments] = useState([]);
+  const [textSegments, setTextSegments] = useState(textSegmentsSaved || []);
 
   /** States whether the order of the segments is correct
    * "correct", "incorrect", "visited", "unvisited", "current"
    * */
   const [SplitCardState, setSplitCardState] = useState("unvisited");
 
-  useEffect(() => {
-    changeCardState(SplitCardState);
-  }, [SplitCardState, cardIndex]);
-
   // Update textSegments whenever cardIndex or card changes
   useEffect(() => {
-    if (card?.questionText) {
+    if (textSegmentsSaved?.length > 0) {
+      setTextSegments(textSegmentsSaved);
+    }
+    else if (card?.questionText) {
       const shuffledSegments = shuffle(
         card.questionText.split(";").map((textPart, index) => {
           return {
@@ -58,6 +59,16 @@ function SplitCardUI({
     }
     setSplitCardState("current");
   }, [cardIndex, card]);
+
+  // Update SplitCardState whenever cardIndex or SplitCardState changes
+  useEffect(() => {
+    changeCardState(SplitCardState);
+  }, [SplitCardState, cardIndex]);
+
+ // Updates textSegmentsList held in the parent component
+  useEffect(() => {
+    updateTextSegments(textSegments);
+  }, [textSegments]);
 
   // handles click on the card segment
   // Un/checks the card segment with given id

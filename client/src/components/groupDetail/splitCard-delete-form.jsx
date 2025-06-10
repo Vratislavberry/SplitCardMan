@@ -12,6 +12,7 @@ function SplitCardDeleteForm({
   isLastCard,
   switchToPrevCard,
   setSplitCardStates,
+  delCardTextSegments,
 }) {
   const [errorState, setErrorState] = useState();
   const { state, handlerMap } = useContext(SplitCardListContext);
@@ -45,6 +46,7 @@ function SplitCardDeleteForm({
                 switchToPrevCard();
               }
               setSplitCardStates();
+              delCardTextSegments();
 
               onClose();
             } else {
