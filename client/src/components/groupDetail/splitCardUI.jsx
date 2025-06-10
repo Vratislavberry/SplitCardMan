@@ -29,6 +29,7 @@ function SplitCardUI({
   changeCardState,
   textSegmentsSaved,
   updateTextSegments,
+  cardStateSaved,
 }) {
   //console.log(`card: ${JSON.stringify(card)}`);
 
@@ -43,8 +44,7 @@ function SplitCardUI({
   useEffect(() => {
     if (textSegmentsSaved?.length > 0) {
       setTextSegments(textSegmentsSaved);
-    }
-    else if (card?.questionText) {
+    } else if (card?.questionText) {
       const shuffledSegments = shuffle(
         card.questionText.split(";").map((textPart, index) => {
           return {
@@ -57,7 +57,11 @@ function SplitCardUI({
       );
       setTextSegments(shuffledSegments);
     }
-    setSplitCardState("current");
+    if (cardStateSaved !== undefined && cardStateSaved !== "unvisited") {
+      setSplitCardState(cardStateSaved);
+    } else {
+      setSplitCardState("visited");
+    }
   }, [cardIndex, card]);
 
   // Update SplitCardState whenever cardIndex or SplitCardState changes
@@ -65,7 +69,7 @@ function SplitCardUI({
     changeCardState(SplitCardState);
   }, [SplitCardState, cardIndex]);
 
- // Updates textSegmentsList held in the parent component
+  // Updates textSegmentsList held in the parent component
   useEffect(() => {
     updateTextSegments(textSegments);
   }, [textSegments]);
@@ -90,7 +94,7 @@ function SplitCardUI({
       ];
     });
 
-    setSplitCardState("current");
+    setSplitCardState("visited");
   }
 
   /***** helper functions *****/
@@ -120,7 +124,7 @@ function SplitCardUI({
         return { ...segment, checked: false, color: "secondary" };
       })
     );
-    setSplitCardState("current");
+    setSplitCardState("visited");
   }
 
   // handles click on the check button

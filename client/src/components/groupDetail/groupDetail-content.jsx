@@ -35,7 +35,7 @@ function GroupDetailContent() {
     ) {
       setSplitCardStates(
         data?.splitCardList.map((item, i) => {
-          return i === 0 ? "current" : "unvisited";
+          return "unvisited";
         })
       );
       setTextSegmentsList(
@@ -62,7 +62,7 @@ function GroupDetailContent() {
           item={SplitCardFormData}
           switchToNewCard={() => {
             setCurrentCardIndex(data?.splitCardList?.length);
-            setSplitCardStates([...(SplitCardStates || []), "current"]);
+            setSplitCardStates([...(SplitCardStates || []), "visited"]);
             setTextSegmentsList([...(textSegmentsList || []), []]);
           }}
           onClose={() => setSplitCardFormData()}
@@ -99,6 +99,7 @@ function GroupDetailContent() {
         <Row>
           <SplitCardBar
             splitCardStates={SplitCardStates}
+            currentCardIndex={currentCardIndex}
             setCurrentCardIndex={setCurrentCardIndex}
           />
           <SplitCardUI
@@ -107,17 +108,14 @@ function GroupDetailContent() {
             card={data?.splitCardList[currentCardIndex]}
             numOfCards={data?.splitCardList?.length}
             setShowConfig={setShowConfig}
+            cardStateSaved={SplitCardStates?.[currentCardIndex]}
             changeCardState={(state) =>
               setSplitCardStates(
                 SplitCardStates?.map((prevState, i) => {
                   if (i === currentCardIndex) {
                     return state;
-                  } else if (
-                    prevState === "current" &&
-                    i !== currentCardIndex
-                  ) {
-                    return "visited";
-                  } else {
+                  }
+                  else {
                     return prevState;
                   }
                 })
