@@ -32,7 +32,6 @@ function SplitCardUI({
 
   const [textSegments, setTextSegments] = useState([]);
 
-
   /** States whether the order of the segments is correct
    * "correct", "incorrect", "visited", "unvisited", "current"
    * */
@@ -40,7 +39,7 @@ function SplitCardUI({
 
   useEffect(() => {
     changeCardState(SplitCardState);
-  }, [SplitCardState]);
+  }, [SplitCardState, cardIndex]);
 
   // Update textSegments whenever cardIndex or card changes
   useEffect(() => {
@@ -58,7 +57,6 @@ function SplitCardUI({
       setTextSegments(shuffledSegments);
     }
     setSplitCardState("current");
-    changeCardState(SplitCardState);
   }, [cardIndex, card]);
 
   // handles click on the card segment

@@ -25,6 +25,8 @@ function GroupDetailContent() {
   const [SplitCardStates, setSplitCardStates] = useState();
   const [textSegmentsList, setTextSegmentsList] = useState();
 
+  // when data is ready, initialize SplitCardStates
+  // with "current" for the first card and "unvisited" for the rest
   useEffect(() => {
     if (
       state === "ready" &&
@@ -110,7 +112,7 @@ function GroupDetailContent() {
       ) : null}
 
       {/* no SplitCard is created yet */}
-      {state === "ready" && data?.splitCardList === 0 ? (
+      {state === "ready" && data?.splitCardList?.length === 0 ? (
         <Row>
           <SplitCardBlank onCreateFormClose={() => setSplitCardFormData({})} />
         </Row>
