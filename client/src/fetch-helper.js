@@ -24,9 +24,8 @@ async function Call(baseUri, useCase, dtoIn, method) {
   return { ok: response.ok, status: response.status, data };
 }
 
-// is redirect in package.json by "proxy": "http://localhost:8888",
-const baseUri = "http://localhost:3000";
-
+// is redirect in package.json (only in development) by "proxy": "http://localhost:8888",
+const baseUri = process.env.REACT_APP_API_URL;
 const FetchHelper = {
   splitCard: {
     create: async (dtoIn) => {
